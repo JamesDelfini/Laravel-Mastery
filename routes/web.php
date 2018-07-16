@@ -19,20 +19,18 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// Route::get('/about', function(){
-//     return view('about');
-// });
-
-// Route::get('/contact', function(){
-//     return view('contact');
-// });
-
 Route::get('/about', ['as' => 'about', function(){
     return view('about');
 }]);
-
 Route::get('/contact', ['as' => 'contact', function(){
     return view('contact');
 }]);
 
-Route::get('/blog', ['as' => 'blog.index']);
+// Route::get('/blog', ['as' => 'blog.index']);
+Route::resource('blog', 'BlogController');
+Route::get('/blog', ['as' => 'blog.index', 'uses' => 'BlogController@index']);
+Route::get('/blog/create', ['as' => 'blog.create', 'uses' => 'BlogController@create']);
+Route::post('/blog', ['as' => 'blog.store', 'uses' => 'BlogController@store']);
+Route::get('/blog/{blog}', ['as' => 'blog.store', 'uses' => 'BlogController@show']);
+Route::post('/blog/{blog}/update', ['as' => 'blog.update', 'uses' => 'BlogController@update']);
+Route::delete('/blog/{blog}', ['as' => 'blog.update', 'uses' => 'BlogController@destroy']);
