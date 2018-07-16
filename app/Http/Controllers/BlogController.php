@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Blog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+use App\User;
+use App\Blog;
+
 
 class BlogController extends Controller
 {
@@ -14,7 +18,8 @@ class BlogController extends Controller
      */
     public function index()
     {
-        //
+        $blog = Blog::all();
+        dd($blog);
     }
 
     /**
@@ -24,7 +29,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -35,7 +40,12 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+        $request['user_id'] = $user->id;
+        $request['slug'] = str_slug($request['title'], '_');
+        $result = Blog::create($request->all());
+
+        return response()->json($result);
     }
 
     /**
@@ -46,7 +56,7 @@ class BlogController extends Controller
      */
     public function show(Blog $blog)
     {
-        //
+        return response()->json($blog);
     }
 
     /**
@@ -69,7 +79,11 @@ class BlogController extends Controller
      */
     public function update(Request $request, Blog $blog)
     {
-        //
+        $blog->title = $request['title'];
+        $blog->body = $request['body'];
+        $blog->save();
+
+        return response()->json($blog);
     }
 
     /**
@@ -80,6 +94,8 @@ class BlogController extends Controller
      */
     public function destroy(Blog $blog)
     {
-        //
+        $blog->delete();
+
+        return response()->json($blog);
     }
 }
