@@ -72,6 +72,8 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
+
+                                    <a href="{{ route('blog.create') }}" class="dropdown-item">Create Blog</a>
                                 </div>
                             </li>
                         @endguest

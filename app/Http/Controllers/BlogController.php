@@ -18,8 +18,9 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blog = Blog::all();
-        dd($blog);
+        $blogs = Blog::orderBy('id', 'desc')->paginate(3);
+
+        return view('blog.index', compact('blogs'));
     }
 
     /**
@@ -29,7 +30,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        
+        return view('blog.create');
     }
 
     /**
@@ -40,12 +41,18 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
+
+        $this->validate($request, [
+            'title' => 'required|unique:blogs|max:255',
+            'body' => 'required'
+        ]);
+
         $user = Auth::user();
         $request['user_id'] = $user->id;
         $request['slug'] = str_slug($request['title'], '_');
         $result = Blog::create($request->all());
 
-        return response()->json($result);
+        return redirect('/blog');
     }
 
     /**
