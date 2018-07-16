@@ -21,6 +21,11 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+    <style>
+        .menu-left{
+            float: left;
+        }
+    </style>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
@@ -34,7 +39,11 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li>
+                            <a href="{{route('about')}}" class="nav-link menu-left">About Us</a>
+                            <a href="{{route('contact')}}" class="nav-link menu-left">Contact</a>
+                            <a href="{{route('blog.index')}}" class="nav-link menu-left">Blog</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

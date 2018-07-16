@@ -18,3 +18,21 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Route::get('/about', function(){
+//     return view('about');
+// });
+
+// Route::get('/contact', function(){
+//     return view('contact');
+// });
+
+Route::get('/about', ['as' => 'about', function(){
+    return view('about');
+}]);
+
+Route::get('/contact', ['as' => 'contact', function(){
+    return view('contact');
+}]);
+
+Route::get('/blog', ['as' => 'blog.index']);
